@@ -4,15 +4,14 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # 监听 main 分支的推送
+      - main
 
 permissions:
-  contents: write  # 允许工作流向仓库写入内容（用于推送 gh-pages 分支）
+  contents: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout 🛎️
         uses: actions/checkout@v4
@@ -21,7 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          # 移除了 cache: 'npm'，避免因缺少 package-lock.json 报错
 
       - name: Install and Build 🔧
         run: |
@@ -31,5 +29,5 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: dist # 部署生成的文件夹
-          branch: gh-pages # 部署到的目标分支
+          folder: dist
+          branch: gh-pages

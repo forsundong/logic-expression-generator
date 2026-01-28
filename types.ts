@@ -1,7 +1,7 @@
 
 export interface AnswerRow {
   id: string;
-  [key: string]: string; // Key will be blank1, blank2, etc. + 'id'
+  [key: string]: string; // 确保允许所有字符串键，包括 blank1, blank2 等
 }
 
 export type ToastType = 'success' | 'error' | 'info';

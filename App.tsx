@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AnswerRow, ToastMessage } from './types';
 import { generateExpression } from './utils/logicGenerator';
 import Toast from './components/Toast';
@@ -33,18 +33,27 @@ const App: React.FC = () => {
 
     // Adjust rows to match new blank count
     setRows(prevRows => prevRows.map(row => {
-      const newRow = { ...row };
+      // Use explicit type casting to avoid TS7053
+      const newRow = { ...row } as AnswerRow;
+      
       // Add missing blanks
       for (let i = 1; i <= count; i++) {
-        if (!newRow[`blank${i}`]) newRow[`blank${i}`] = '';
+        const key = `blank${i}`;
+        if (newRow[key] === undefined) {
+          newRow[key] = '';
+        }
       }
-      // Remove excess blanks (optional, but cleaner)
+      
+      // Remove excess blanks
       Object.keys(newRow).forEach(key => {
         if (key.startsWith('blank')) {
           const num = parseInt(key.replace('blank', ''));
-          if (num > count) delete newRow[key];
+          if (num > count) {
+            delete newRow[key];
+          }
         }
       });
+      
       return newRow;
     }));
   };
@@ -56,7 +65,8 @@ const App: React.FC = () => {
   };
 
   const addRow = () => {
-    const newRow: AnswerRow = { id: Math.random().toString(36).substr(2, 9) };
+    // Cast to AnswerRow immediately to allow dynamic indexing in the loop
+    const newRow = { id: Math.random().toString(36).substring(2, 11) } as AnswerRow;
     for (let i = 1; i <= blankCount; i++) {
       newRow[`blank${i}`] = '';
     }
@@ -73,7 +83,7 @@ const App: React.FC = () => {
 
   const clearAll = () => {
     const resetRows = rows.map(row => {
-      const newRow = { id: row.id };
+      const newRow = { id: row.id } as AnswerRow;
       for (let i = 1; i <= blankCount; i++) {
         newRow[`blank${i}`] = '';
       }
@@ -84,7 +94,7 @@ const App: React.FC = () => {
   };
 
   const copyToClipboard = () => {
-    if (!result) return;
+    if (!result || result === "()") return;
     navigator.clipboard.writeText(result).then(() => {
       addToast("结果已复制到剪贴板", "success");
     }).catch(() => {
