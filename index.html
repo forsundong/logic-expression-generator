@@ -12,6 +12,8 @@
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
         }
+        /* 防止页面在加载完成前闪烁 */
+        [v-cloak] { display: none; }
     </style>
 
 <link rel="stylesheet" href="/index.css">
@@ -21,14 +23,15 @@
     "react": "https://esm.sh/react@^19.2.4",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
     "react/": "https://esm.sh/react@^19.2.4/",
-    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "vite": "https://esm.sh/vite@^7.3.1"
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
-  <script type="module" crossorigin src="/logic-expression-generator/assets/index-C-7jAH1-.js"></script>
+  <script type="module" crossorigin src="./assets/index-C-7jAH1-.js"></script>
 </head>
 <body>
     <div id="root"></div>
+    <!-- 使用 ./index.tsx 确保 Vite 在构建时能正确处理入口文件 -->
 </body>
 </html>
