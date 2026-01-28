@@ -21,7 +21,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
+          # 移除了 cache: 'npm'，避免因缺少 package-lock.json 报错
 
       - name: Install and Build 🔧
         run: |
