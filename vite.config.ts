@@ -2,13 +2,21 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // 使用相对路径 './' 是解决 GitHub Pages 路径问题最稳妥的方法
-  base: './', 
+  // 相对路径 './' 允许项目在任何子文件夹（如 /logic-expression-generator/）下运行
+  base: './',
   build: {
     outDir: 'dist',
+    emptyOutDir: true,
     assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        // 确保输出文件名不包含会导致某些服务器报错的特殊字符
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`
+      }
+    }
   }
 });

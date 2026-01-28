@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Logic Expression Generator</title>
+    <!-- Tailwind via CDN for immediate styles -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -12,8 +13,6 @@
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
         }
-        /* 防止页面在加载完成前闪烁 */
-        [v-cloak] { display: none; }
     </style>
 <script type="importmap">
 {
@@ -30,7 +29,7 @@
 </head>
 <body>
     <div id="root"></div>
-    <!-- 使用 ./index.tsx 确保 Vite 在构建时能正确处理入口文件 -->
+    <!-- Point to the local entry file. Vite will replace this during build -->
     <script type="module" src="./index.tsx"></script>
 <script type="module" src="/index.tsx"></script>
 </body>
